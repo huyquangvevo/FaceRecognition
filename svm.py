@@ -76,6 +76,7 @@ pca = PCA(n_components=n_components, svd_solver='randomized', whiten=True).fit(X
 
 X_train_pca = pca.transform(X)
 
+
 target_names = list_people
 dump(target_names,'./Estimated/name.joblib')
 
@@ -87,4 +88,3 @@ clf = SVC(kernel='linear',C=0.1)
 clf = clf.fit(X_train_pca,y)
 
 dump(clf,'./Estimated/estimate.joblib')
-

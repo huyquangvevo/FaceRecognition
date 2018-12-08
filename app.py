@@ -31,7 +31,6 @@ id_images=os.path.basename(filename)
 id_images = os.path.splitext(id_images)[0][:-1]
 text_true = "True: " + id_images
 
-#print(filename)
 
 def rgb2gray(rgb):
     return np.dot(rgb[...,:3], [0.299, 0.587, 0.114])
@@ -39,16 +38,17 @@ def rgb2gray(rgb):
 img = mpimg.imread(filename)
 img = rgb2gray(img)
 img = img.ravel()
-img = np.vstack((img,img))
-img = img[-1:,:]
 
-#X = load('./Estimated/datapeople.joblib')
+X = load('./Estimated/datapeople.joblib')
+X = np.vstack((X,img))
 
-#n_components = 120
-#pca = PCA(n_components=n_components, svd_solver='randomized', whiten=True).fit(X)
+n_components = 120
+pca = PCA(n_components=n_components, svd_solver='randomized', whiten=True).fit(X)
 
+X = pca.transform(X)
+img = X[-1:,:]
 
-clf = load('./Estimated/clf.joblib')
+clf = load('./Estimated/estimate.joblib')
 
 
 name_people = load('./Estimated/name.joblib')
