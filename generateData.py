@@ -63,7 +63,7 @@ y = y.astype(int)
 data_people = data_people[:,:-1]
 
 #save data 
-dump(data_people,'datapeople.joblib')
+#dump(data_people,'datapeople.joblib')
 print(data_people.shape)
 #print(y)
 
@@ -76,7 +76,7 @@ target_names = list_people
 
 X = data_people
 
-X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.25,random_state=42)
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.15,random_state=42)
 
 n_components = 120
 
@@ -95,14 +95,17 @@ X_test_pca = pca.transform(X_test)
 
 print("X train data shape ")
 print(X_train_pca.shape)
-
+'''
 param_grid = {'C': [1e3, 5e3, 1e4, 5e4, 1e5],
               'gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1], }
 clf = GridSearchCV(SVC(kernel='rbf', class_weight='balanced'),
                    param_grid, cv=5)
+'''
+clf = SVC(kernel='linear',C=0.1)
+
 clf = clf.fit(X_train_pca, y_train)
-print("Best estimator found by grid search: ")
-print(clf.best_estimator_)
+#print("Best estimator found by grid search: ")
+#print(clf.best_estimator_)
 
 y_pred = clf.predict(X_test_pca)
 
@@ -140,7 +143,7 @@ eigenface_titles = ["eigenface %d" % i for i in range(eigenfaces.shape[0])]
 plot_gallery(eigenfaces, eigenface_titles, h, w)
 
 #dump
-dump(clf,'people.joblib')
+#dump(clf,'people.joblib')
 
 plt.show()
 

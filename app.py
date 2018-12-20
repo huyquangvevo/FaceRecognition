@@ -38,15 +38,19 @@ def rgb2gray(rgb):
 img = mpimg.imread(filename)
 img = rgb2gray(img)
 img = img.ravel()
+img = np.vstack((img,img))
+img = img[-1:,:]
 
-X = load('./Estimated/datapeople.joblib')
-X = np.vstack((X,img))
+#X = load('./Estimated/datapeople.joblib')
+#X = np.vstack((X,img))
 
-n_components = 120
-pca = PCA(n_components=n_components, svd_solver='randomized', whiten=True).fit(X)
+#n_components = 120
+#pca = PCA(n_components=n_components, svd_solver='randomized', whiten=True).fit(X)
+pca = load('./Estimated/pca.joblib')
+img = pca.transform(img)
 
-X = pca.transform(X)
-img = X[-1:,:]
+#X = pca.transform(X)
+#img = X[-1:,:]
 
 clf = load('./Estimated/estimate.joblib')
 
