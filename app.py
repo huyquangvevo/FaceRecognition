@@ -41,16 +41,8 @@ img = img.ravel()
 img = np.vstack((img,img))
 img = img[-1:,:]
 
-#X = load('./Estimated/datapeople.joblib')
-#X = np.vstack((X,img))
-
-#n_components = 120
-#pca = PCA(n_components=n_components, svd_solver='randomized', whiten=True).fit(X)
 pca = load('./Estimated/pca.joblib')
 img = pca.transform(img)
-
-#X = pca.transform(X)
-#img = X[-1:,:]
 
 clf = load('./Estimated/estimate.joblib')
 
@@ -62,7 +54,6 @@ y = clf.predict(img)
 
 result = name_people[y[0]]
 
-#gui.mainloop()
 print(result)
 
 

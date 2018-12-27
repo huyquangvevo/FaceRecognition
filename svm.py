@@ -13,7 +13,6 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from joblib import dump,load
 from sklearn.model_selection import KFold, cross_val_score
-import pickle
 
 rootPath = './Data'
 
